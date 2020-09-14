@@ -1,0 +1,37 @@
+Pl sql code to calculate the age from birthdate and update it into table.Update patientgroup column based on following condition - "If age is less than 18 then minor and else adult".
+
+
+
+declare
+page number;
+cursor c is
+select age into page from patientinfo;
+begin
+update patientinfo set age =  trunc(months_between(sysdate,birthdate)/12) where age is null;
+for i in c
+loop
+if(i.age>=0 and i.age<18) then
+
+update patientinfo set patientage='minor' where age<18;
+else
+update patientinfo set patientage='adult' where age>=18;
+end if;
+end loop;
+
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
